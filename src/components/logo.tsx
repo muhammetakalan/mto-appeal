@@ -3,7 +3,7 @@ export default function Logo({ ...props }) {
     <svg {...props} viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
       <path
         fill="#00BDD6"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M39 39V43H63V86H67V43H86V39H39ZM39 45V86H43V49H48V86H52V49H57V86H61V45H39ZM69 45V86H86V45H69ZM73 49H82V82H73V49Z"
       />
       <path
@@ -12,7 +12,7 @@ export default function Logo({ ...props }) {
       />
       <path
         fill="currentColor"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M128 128H0V0H128V128ZM4 124V4H124V124H4Z"
       />
     </svg>
