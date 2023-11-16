@@ -9,8 +9,10 @@ import { zodI18nMap } from 'zod-i18n-map'
 
 import UserField from '@/components/formField/user-field'
 
+import EmailField from './formField/email-field'
 import SurnameField from './formField/username-field'
 import { toast } from './ui/use-toast'
+import { sendMail } from '@/action'
 import FormSchema from '@/lib/form-schema'
 import { Alert, AlertDescription } from '@/ui/alert'
 import { Button } from '@/ui/button'
@@ -30,9 +32,11 @@ export default function ApplicationForm() {
   })
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    sendMail(data)
+
     toast({
       title: 'Başvurunuz Alındı',
-      description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 👋️🤗️`
+      description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 🤗️`
     })
   }
 
@@ -49,6 +53,7 @@ export default function ApplicationForm() {
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <UserField />
           <SurnameField />
+          <EmailField />
           <Button type="submit">Başvur</Button>
         </form>
       </Form>
