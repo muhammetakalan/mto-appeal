@@ -7,19 +7,15 @@ import {
 } from '@/ui/form'
 import { Input } from '@/ui/input'
 
-export default function EmailField() {
+export default function PhoneNumberField() {
   return (
     <FormField
-      name="email"
+      name="phoneNumber"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>E-posta</FormLabel>
+          <FormLabel>Telefon Numarası</FormLabel>
           <FormControl>
-            <Input
-              type="email"
-              placeholder="örn: example@gmail.com"
-              {...field}
-            />
+            <Input type="tel" placeholder="örn: 0000000000" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

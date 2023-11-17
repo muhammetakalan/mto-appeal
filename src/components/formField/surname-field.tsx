@@ -7,15 +7,15 @@ import {
 } from '@/ui/form'
 import { Input } from '@/ui/input'
 
-export default function UserField() {
+export default function SurnameField() {
   return (
     <FormField
-      name="name"
+      name="surname"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>İsim</FormLabel>
+          <FormLabel>Soyad</FormLabel>
           <FormControl>
-            <Input placeholder="İsim" {...field} />
+            <Input placeholder="örn: Kısakürek" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
