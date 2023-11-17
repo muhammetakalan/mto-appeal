@@ -7,10 +7,16 @@ import i18next from 'i18next'
 import * as z from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
 
-import UserField from '@/components/formField/user-field'
+import NameField from '@/components/formField/name-field'
 
+import BirthDateField from './formField/birth-date-field'
+import CovenantField from './formField/covenant-field'
 import EmailField from './formField/email-field'
-import SurnameField from './formField/username-field'
+import GenderField from './formField/gender-filed'
+import InterestsField from './formField/interests-field'
+import PhoneNumberField from './formField/phone-number-field'
+import SurnameField from './formField/surname-field'
+import TCKNField from './formField/tckn-field'
 import { toast } from './ui/use-toast'
 import { sendMail } from '@/action'
 import FormSchema from '@/lib/form-schema'
@@ -51,9 +57,15 @@ export default function ApplicationForm() {
 
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-          <UserField />
+          <NameField />
           <SurnameField />
+          <GenderField />
+          <BirthDateField />
+          <TCKNField />
           <EmailField />
+          <PhoneNumberField />
+          <InterestsField />
+          <CovenantField />
           <Button type="submit">Başvur</Button>
         </form>
       </Form>

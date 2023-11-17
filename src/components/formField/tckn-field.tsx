@@ -7,19 +7,15 @@ import {
 } from '@/ui/form'
 import { Input } from '@/ui/input'
 
-export default function EmailField() {
+export default function TCKNField() {
   return (
     <FormField
-      name="email"
+      name="tckn"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>E-posta</FormLabel>
+          <FormLabel>T.C. Kimlik Numarası</FormLabel>
           <FormControl>
-            <Input
-              type="email"
-              placeholder="örn: example@gmail.com"
-              {...field}
-            />
+            <Input type="number" placeholder="örn: 00000000000" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
