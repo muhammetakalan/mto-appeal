@@ -1,3 +1,5 @@
+import { Textarea } from '@/components/ui/textarea'
+
 import {
   FormControl,
   FormField,
@@ -5,21 +7,16 @@ import {
   FormLabel,
   FormMessage
 } from '@/ui/form'
-import { Input } from '@/ui/input'
 
-export default function EmailField() {
+export default function InterestsField() {
   return (
     <FormField
-      name="email"
+      name="interests"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>E-posta</FormLabel>
+          <FormLabel>İlgi ve Alakalarınız Nedir?</FormLabel>
           <FormControl>
-            <Input
-              type="email"
-              placeholder="örn: example@gmail.com"
-              {...field}
-            />
+            <Textarea placeholder="örn: Kitap okumak, Astronomi" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
