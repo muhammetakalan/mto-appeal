@@ -1,11 +1,11 @@
-import ApplicationForm from '@/components/application-form'
-import Header from '@/components/layout/header'
+import ApplicationForm from '@/components/ApplicationForm'
+import Header from '@/components/layout/Header'
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-screen-md rounded border bg-white shadow">
+    <div className="mx-auto max-w-screen-md rounded-lg border bg-card font-sans shadow">
       <Header />
-      <div className="h-1 w-full bg-primary" />
+      <div className="h-1 w-full bg-secondary" />
       <ApplicationForm />
     </div>
   )
