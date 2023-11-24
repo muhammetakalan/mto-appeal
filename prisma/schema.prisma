@@ -1,0 +1,21 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_PRISMA_URL")
+}
+
+model Form {
+    id          Int      @id @default(autoincrement())
+    name        String   @db.VarChar(24)
+    surname     String   @db.VarChar(24)
+    email       String   @db.VarChar(24)
+    gender      String   @db.VarChar(6)
+    birthdate   DateTime
+    tckn        String   @db.VarChar(11)
+    phoneNumber String   @db.VarChar(10)
+    interests   String   @db.VarChar(64)
+    covenant    Boolean
+}
