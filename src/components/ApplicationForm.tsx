@@ -37,13 +37,18 @@ export default function ApplicationForm() {
     resolver: zodResolver(FormSchema)
   })
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    sendMail(data)
-
-    toast({
-      title: 'Başvurunuz Alındı',
-      description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 🤗️`
-    })
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    if (await sendMail(data)) {
+      toast({
+        title: 'Başvurunuz Alındı',
+        description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 🤗️`
+      })
+    } else {
+      toast({
+        title: 'Zaten Başvurdunuz',
+        description: `MTO'ya zaten başvuruda bulundunuz. ${data.name} ${data.surname}`
+      })
+    }
   }
 
   return (
