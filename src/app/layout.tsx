@@ -1,3 +1,5 @@
+import Providers from '@/components/Providers'
+
 import '@/styles/globals.css'
 import { Toaster } from '@/ui/toaster'
 import { GeistMono } from 'geist/font/mono'
@@ -16,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${GeistSans.variable} ${GeistMono.variable}`}>
-        <main className="p-4 font-sans">{children}</main>
-        <Toaster />
+        <Providers>
+          <main className="p-4">{children}</main>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )
