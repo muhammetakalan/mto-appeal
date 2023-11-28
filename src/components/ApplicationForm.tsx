@@ -1,5 +1,7 @@
 'use client'
 
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import i18next from 'i18next'
@@ -33,21 +35,27 @@ i18next.init({
 z.setErrorMap(zodI18nMap)
 
 export default function ApplicationForm() {
+  const [pending, setPending] = useState(false)
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema)
   })
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    setPending(true)
+
     if (await sendMail(data)) {
       toast({
         title: 'Başvurunuz Alındı',
         description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 🤗️`
       })
+      setPending(false)
     } else {
       toast({
         title: 'Zaten Başvurdunuz',
         description: `MTO'ya zaten başvuruda bulundunuz. ${data.name} ${data.surname}`
       })
+      setPending(false)
     }
   }
 
@@ -71,7 +79,14 @@ export default function ApplicationForm() {
           <PhoneNumberField />
           <InterestsField />
           <CovenantField />
-          <Button type="submit">Başvur</Button>
+          <Button
+            className="select-none"
+            type="submit"
+            disabled={pending ? true : false}
+          >
+            {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {pending ? 'Başvuru Yapılıyor' : 'Başvur'}
+          </Button>
         </form>
       </Form>
     </div>
