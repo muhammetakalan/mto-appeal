@@ -9,13 +9,13 @@ datasource db {
 
 model Form {
     id          Int      @id @default(autoincrement())
-    name        String   @db.VarChar(24)
-    surname     String   @db.VarChar(24)
-    email       String   @db.VarChar(24)
+    name        String   @db.VarChar(64)
+    surname     String   @db.VarChar(64)
+    email       String   @db.VarChar(64)
     gender      String   @db.VarChar(6)
     birthdate   DateTime
     tckn        String   @db.VarChar(11)
     phoneNumber String   @db.VarChar(10)
-    interests   String   @db.VarChar(64)
+    interests   String   @db.VarChar(128)
     covenant    Boolean
 }
