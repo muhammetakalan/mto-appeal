@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/react'
+
 import Providers from '@/components/Providers'
 
 import '@/styles/globals.css'
@@ -22,6 +24,7 @@ export default function RootLayout({
           <main className="p-4">{children}</main>
           <Toaster />
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
