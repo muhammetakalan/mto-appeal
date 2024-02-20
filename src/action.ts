@@ -1,41 +1,49 @@
 'use server'
 
-import { Resend } from 'resend'
 import * as z from 'zod'
 
+import connectDB from './lib/connectDB'
+import Record from './models/Record'
 import FormSchema from '@/lib/form-schema'
-import prisma from '@/lib/prisma'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+export async function addRecord(data: z.infer<typeof FormSchema>) {
+  try {
+    await connectDB()
 
-export async function sendMail(data: z.infer<typeof FormSchema>) {
-  const existingForm = await prisma.form.findFirst({
-    where: {
-      OR: [{ email: data.email }]
+    const requiredFields: Array<keyof typeof data> = [
+      'name',
+      'surname',
+      'email',
+      'gender',
+      'birthdate',
+      'tckn',
+      'phoneNumber',
+      'interests',
+      'covenant'
+    ]
+    const hasRequiredData = requiredFields.every(field => data[field])
+
+    if (!hasRequiredData) {
+      return {
+        message: 'Tüm alanlar zorunlu',
+        success: false
+      }
     }
-  })
 
-  if (existingForm) {
-    return false
-  } else {
-    await prisma.form.create({ data })
-    await resend.emails.send({
-      from: 'MTO <no-reply@mto.akalan.dev>',
-      to: [data.email],
-      subject: 'Başvurunuz Alındı',
-      html: `
-        Selamünaleyküm ${data.name} ${data.surname} 👋️, <br/> <br/>
+    const existingForm = await Record.findOne({ email: data.email })
 
-        MTO'ya şimdiden hoş geldin! 🤗️ Bu e-postayı alabiliyorsan, her şey yolunda demektir. <br/> <br/>
+    if (existingForm) {
+      return {
+        message: 'Zaten Başvurdunuz',
+        success: false
+      }
+    } else {
+      await new Record(data).save()
 
-        Gelişmelerden seni en kısa sürede haberdar edeceğiz. <br/> <br/>
-
-        Selametle <br/> <br/>
-
-        <pre>${JSON.stringify(data, null, 4)}</pre>
-        `
-    })
-
-    return true
+      return { success: true }
+    }
+  } catch (error) {
+    console.error('An error occurred while sending the form to MongoDB:', error)
+    throw error
   }
 }

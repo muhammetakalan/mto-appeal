@@ -20,9 +20,8 @@ import SurnameField from '@/components/formField/Surname'
 import TCKNField from '@/components/formField/Tckn'
 import { toast } from '@/components/ui/use-toast'
 
-import { sendMail } from '@/action'
+import { addRecord } from '@/action'
 import FormSchema from '@/lib/form-schema'
-import { Alert, AlertDescription } from '@/ui/alert'
 import { Button } from '@/ui/button'
 import { Form } from '@/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,33 +40,28 @@ export default function ApplicationForm() {
     resolver: zodResolver(FormSchema)
   })
 
-  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     setPending(true)
 
-    if (await sendMail(data)) {
+    const { success, message } = await addRecord(data)
+
+    if (success) {
       toast({
         title: 'Başvurunuz Alındı',
         description: `MTO'ya şimdiden hoş geldin. ${data.name} ${data.surname} 🤗️`
       })
-      setPending(false)
     } else {
       toast({
-        title: 'Zaten Başvurdunuz',
-        description: `MTO'ya zaten başvuruda bulundunuz. ${data.name} ${data.surname}`
+        title: 'Başvuru Başarısız',
+        description: message
       })
-      setPending(false)
     }
+
+    setPending(false)
   }
 
   return (
-    <div className="space-y-4 p-8">
-      <Alert variant="destructive">
-        <AlertDescription>
-          Kimlik bilgilerini doğru paylaşmadığınız takdirde hesap bilgileriniz
-          size ulaşmayacaktır.
-        </AlertDescription>
-      </Alert>
-
+    <div className="p-8">
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <NameField />
